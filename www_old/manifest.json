@@ -1,0 +1,37 @@
+{
+    "name": "Educachien Engis-Fagnes",
+    "short_name": "Educachien",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#9e0001",
+    "description": "Club d'éducation canine",
+    "icons": [
+      {
+        "src": "apple-touch-icon-180x180.png",
+        "sizes": "180x180",
+        "type": "image/png"
+      }
+    ],
+    "shortcuts": [
+        {
+          "name": "Accueil",
+          "url": "/"
+        },
+        {
+          "name": "Le club",
+          "url": "/club.html"
+        },
+        {
+          "name": "Cours",
+          "url": "/cours"
+        },
+        {
+          "name": "Horaires",
+          "url": "/horaires"
+        },
+        {
+          "name": "Contact",
+          "url": "/contact"
+        }
+      ]
+  }

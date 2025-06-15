@@ -1,0 +1,790 @@
+/* ===========================================
+   EDUCACHIEN CLUB - MAIN STYLESHEET
+   =========================================== */
+
+/* ===========================================
+   BASE STYLES
+   =========================================== */
+html {
+    font: -apple-system-body;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    font-family: Montserrat, sans-serif;
+    font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 35px;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 21px;
+    font-weight: 700;
+}
+
+h5 {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+p {
+    text-align: justify;
+}
+
+/* ===========================================
+   UTILITY CLASSES
+   =========================================== */
+.text-red {
+    color: rgb(158, 0, 1);
+}
+
+.past .text-red {
+    color: black;
+}
+
+.bolder {
+    font-weight: bolder;
+}
+
+.future {
+    /* Future events styling */
+}
+
+.past {
+    opacity: 0.5;
+}
+
+/* ===========================================
+   NAVIGATION BAR
+   =========================================== */
+#nav-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.navbar {
+    background: rgb(158, 0, 1);
+    position: absolute;
+}
+
+.container, .container-fluid, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+    padding-right: 22px;
+}
+
+.navbar-brand img {
+    margin-right: 0;
+}
+
+.nav-link {
+    white-space: nowrap;
+}
+
+.nav-link, .navbar-brand {
+    color: yellow;
+    cursor: pointer;
+    padding-top: unset;
+    padding-bottom: unset;
+    line-height: 50px;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.navbar-brand img {
+    margin-right: 10px;
+    height: 50px;
+}
+
+.nav-link {
+    color: #aaa;
+    margin-right: 1em !important;
+}
+
+.nav-link-no-margin-right {
+    color: #aaa;
+    margin-right: 0 !important;
+}
+
+.nav-logo {
+    padding: 10px;
+}
+
+.active .nav-link {
+    color: yellow;
+}
+
+.nav-link:hover {
+    color: yellow;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    background-color: rgb(158, 0, 1);
+}
+
+.dropdown-item {
+    color: gray;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: rgb(158, 0, 1);
+    color: yellow;
+    text-decoration: none;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    background-color: rgb(158, 0, 1);
+    color: yellow;
+}
+
+/* ===========================================
+   RESPONSIVE NAVIGATION
+   =========================================== */
+@media (max-width: 518px) {
+    .navbar-brand {
+        visibility: visible;
+        font-size: small;
+    }
+}
+
+@media (max-width: 410px) {
+    .nav-link, .navbar-brand {
+        line-height: 40px;
+    }
+}
+
+@media (max-width: 370px) {
+    .nav-link, .navbar-brand {
+        line-height: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-nav .nav-link {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* ===========================================
+   LANDING IMAGE
+   =========================================== */
+.landing-image img {
+    width: 100%;
+    -webkit-box-shadow: 0px -10px 60px -11px rgba(0, 0, 0, 0.62);
+    -moz-box-shadow: 0px -10px 60px -11px rgba(0, 0, 0, 0.62);
+    box-shadow: 0px -10px 60px -11px rgba(0, 0, 0, 0.62);
+    margin-top: 60px;
+}
+
+/* ===========================================
+   MAIN CONTENT
+   =========================================== */
+/* Main container */
+main.container-fluid {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+main.container-fluid > section {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+section {
+    max-width: 800px;
+    margin: 0 auto; /* Centrer la section */
+    padding: 0 20px; /* Ajouter un peu de padding sur les côtés */
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto 50px auto; /* Centrer et ajouter marge en bas */
+    padding: 0 20px; /* Ajouter un peu de padding sur les côtés */
+}
+
+/* Welcome Section */
+.welcome-section {
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome-section h1 {
+    margin-top: 10px;
+}
+
+.welcome-section .subtitle {
+    font-size: 16px;
+}
+
+.divider {
+    width: 200px;
+    margin: auto;
+}
+
+/* News Section */
+.news-section {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.news-divider {
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.2;
+}
+
+/* Philosophy Section */
+.philosophy-section {
+    margin: 20px 0;
+}
+
+.philosophy-highlight {
+    margin: 0;
+    padding: 0;
+}
+
+/* Content sections */
+.content-section {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.about-section {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.team-section {
+    margin: 20px 0;
+    width: 100%;
+}
+
+.contact-section {
+    margin: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+/* Ensure text justification works properly in centered containers */
+.text-justify {
+    text-align: justify;
+    hyphens: auto;
+}
+
+/* Responsive adjustments for content centering */
+@media (max-width: 850px) {
+    main.container-fluid > section,
+    section,
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 600px) {
+    main.container-fluid > section,
+    section,
+    .container {
+        padding: 0 10px;
+    }
+}
+
+/* ===========================================
+   LINKS AND ANCHORS
+   =========================================== */
+a {
+    font-weight: 400;
+    color: #000;
+}
+
+a:hover {
+    color: #000;
+}
+
+a.no_line {
+    text-decoration: none;
+}
+
+a.tarif {
+    font-size: 12px;
+    font-style: italic;
+}
+
+a.phone {
+    text-decoration: none;
+    font-weight: 100;
+}
+
+a.calendar, a.vcard {
+    text-decoration: none;
+    font-weight: 100;
+    font-size: small;
+}
+
+/* ===========================================
+   SPECIAL ELEMENTS
+   =========================================== */
+.flip {
+    display: inline-block;
+    transform: scale(-1, 1);
+    -moz-transform: scale(-1, 1);
+    -webkit-transform: scale(-1, 1);
+    -o-transform: scale(-1, 1);
+    -ms-transform: scale(-1, 1);
+}
+
+blockquote {
+    margin-left: auto;
+    margin-right: auto;
+    width: 250px;
+}
+
+blockquote p {
+    padding: 15px;
+    margin: 0;
+    background: #eee;
+    border-radius: 5px;
+}
+
+blockquote p::before {
+    content: "\201C";
+}
+
+blockquote p::after {
+    content: "\201D";
+}
+
+blockquote footer {
+    padding: 0;
+    text-align: right;
+}
+
+/* ===========================================
+   MEDIA ELEMENTS
+   =========================================== */
+.media img {
+    max-width: 375px;
+}
+
+.map-icon {
+    text-decoration: none;
+}
+
+.map-icon img {
+    width: 30px;
+    height: 30px;
+}
+
+.fb {
+    width: 20px;
+    margin: 0px 2px 4px 2px;
+}
+
+/* ===========================================
+   FLEXBOX LAYOUTS
+   =========================================== */
+.flex-container {
+    max-width: 800px;
+    margin: auto;
+    margin-bottom: 50px;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.flex-item {
+    padding: 15px;
+    margin: auto;
+}
+
+/* ===========================================
+   TEAM SECTION
+   =========================================== */
+.section-team .team .team-player {
+    margin-bottom: 60px;
+}
+
+.section-team .team .team-player img {
+    max-width: 100px;
+    box-shadow: 0 10px 25px #0000004d;
+}
+
+.section-team .team .team-player h5 {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.45em;
+}
+
+.section-team .team .team-player p {
+    margin-top: -10px;
+    color: #9e0001 !important;
+}
+
+.section-team .team .team-player .category {
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+/* ===========================================
+   CONTACT ELEMENTS
+   =========================================== */
+.contact_name {
+    font-weight: 500;
+    font-style: italic;
+}
+
+.contact_name, .contact_sms, .contact_phone, .contact_email, .contact_vcard {
+    text-decoration: none;
+    padding-right: 6px;
+}
+
+.email-contact {
+    font-weight: 200;
+}
+
+.column {
+    padding-bottom: 44px;
+}
+
+/* ===========================================
+   EVENTS AND TABLES
+   =========================================== */
+.event-date-column {
+    width: 180px;
+}
+
+.event-title-column {
+    font-weight: bold;
+    vertical-align: top;
+}
+
+.event-item {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* ===========================================
+   BOOTSTRAP OVERRIDES
+   =========================================== */
+.btn-check:active + .btn-outline-primary, .btn-check:checked + .btn-outline-primary, .btn-outline-primary.active, .btn-outline-primary.dropdown-toggle.show, .btn-outline-primary:active {
+    color: #fff;
+    background-color: rgb(158, 0, 1);
+    border-color: rgb(158, 0, 1);
+}
+
+.btn-outline-primary {
+    color: rgb(158, 0, 1);
+    border-color: rgb(158, 0, 1);
+}
+
+.btn-check:active + .btn-primary, .btn-check:checked + .btn-primary, .btn-primary.active, .btn-primary:active, .show > .btn-primary.dropdown-toggle {
+    color: yellow;
+    background-color: rgb(158, 0, 1);
+    border-color: rgb(158, 0, 1);
+}
+
+.btn-primary:hover, .btn-primary.active:hover {
+    color: yellow;
+    background-color: rgb(158, 0, 1);
+    border-color: rgb(158, 0, 1);
+}
+
+.btn-secondary {
+    color: rgb(158, 0, 1);
+    background-color: transparent;
+    border-color: rgb(158, 0, 1);
+}
+
+.btn-secondary:hover {
+    color: rgb(158, 0, 1);
+    background-color: yellow;
+    border-color: rgb(158, 0, 1);
+}
+
+.accordion-button:not(.collapsed) {
+    color: rgb(158, 0, 1);
+    background-color: rgba(158, 0, 1, 0.05);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    transform: rotate(-180deg);
+}
+
+.accordion-button {
+    padding: 8px 12px;
+    background-color: transparent;
+}
+
+.card {
+    background-color: transparent;
+}
+
+/* ===========================================
+   RESPONSIVE DESIGN
+   =========================================== */
+.small-screen-only {
+    display: none;
+}
+
+.large-screen-only {
+    display: block;
+}
+
+.only-small-screen {
+    visibility: collapse;
+}
+
+@media (max-width: 800px) {
+    .small-screen-only {
+        display: block;
+    }
+    
+    .large-screen-only {
+        display: none;
+    }
+    
+    .column {
+        padding-bottom: 44px;
+    }
+}
+
+@media (max-width: 518px) {
+    .only-small-screen {
+        visibility: visible;
+        margin-bottom: 50px;
+    }
+    
+    .event-date-column {
+        width: 170px;
+    }
+}
+
+@media (max-width: 400px) {
+    .media img {
+        max-width: 300px;
+    }
+}
+
+/* ===========================================
+   FOOTER
+   =========================================== */
+footer {
+    color: #777;
+    padding: 20px 10px;
+}
+
+@media (max-width: 575.98px) {
+    footer {
+        padding: 10px;
+    }
+}
+
+/* ===========================================
+   MISC ELEMENTS
+   =========================================== */
+.advices .title {
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.advices li {
+    margin-left: 5px;
+}
+
+.container-mobile-apps {
+    padding: 20px;
+}
+
+.container-mobile-apps .subtitle {
+    font-size: 20px;
+}
+
+.address {
+    font-size: 10px;
+    color: #555;
+}
+
+small {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.gallery-link {
+    padding-bottom: 8px;
+}
+
+.gallery-link span {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.bi-calendar-plus {
+    transform: translateY(-2px);
+}
+
+:focus-visible {
+    outline-style: none;
+}
+
+.nav-link:focus, .nav-link:hover {
+    color: yellow;
+}
+
+/* ===========================================
+   DARK MODE SUPPORT
+   =========================================== */
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #fff;
+        background: #000;
+    }
+    
+    .text-red {
+        color: yellow;
+    }
+    
+    .past .text-red {
+        color: white;
+    }
+    
+    blockquote p {
+        padding: 15px;
+        margin: 0;
+        background: rgb(100, 100, 100);
+        border-radius: 5px;
+    }
+    
+    a {
+        color: #fff;
+    }
+    
+    a:hover {
+        color: #ddd;
+    }
+    
+    hr {
+        background: #aaa;
+    }
+    
+    .accordion-button {
+        color: #fff;
+    }
+    
+    .accordion-button:not(.collapsed) {
+        color: yellow;
+    }
+    
+    .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23ff0'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    
+    .accordion-button::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+    
+    .btn-secondary {
+        color: yellow;
+    }
+    
+    .event-item {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    
+    .section-team .team .team-player p {
+        color: #FFFF00AA !important;
+    }
+}
+
+/* ===========================================
+   SCHEDULE CARDS
+   =========================================== */
+.schedule-container {
+    margin: 30px 0;
+}
+
+.schedule-card {
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 25px;
+    margin-bottom: 20px;
+    text-align: center;
+    transition: transform 0.2s ease;
+    color: white;
+}
+
+.schedule-card:hover {
+    transform: translateY(-2px);
+}
+
+.schedule-card h4 {
+    color: white;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.schedule-card h5 {
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.schedule-times {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.schedule-times strong {
+    color: white;
+}
+
+.schedule-note {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.schedule-note small {
+    color: white;
+    font-weight: 600;
+}
+
+/* Responsive adjustments for schedule cards */
+@media (max-width: 768px) {
+    .schedule-card {
+        padding: 20px;
+        margin-bottom: 15px;
+    }
+    
+    .schedule-times {
+        font-size: 14px;
+    }
+} 
