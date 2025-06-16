@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setActiveNavigation();
     
     // Initialize any additional functionality
-    initializeComponents();
+    initializeAdditionalComponents();
 });
 
 /**
@@ -31,11 +31,11 @@ function setActiveNavigation() {
 }
 
 /**
- * Initialize various components
+ * Initialize additional components (separate from components.js)
  */
-function initializeComponents() {
+function initializeAdditionalComponents() {
     // Add any additional initialization here
-    console.log('Components initialized');
+    console.log('Additional components initialized');
 }
 
 /**
@@ -97,7 +97,7 @@ window.addEventListener('scroll', function() {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {
         setActiveNavigation,
-        initializeComponents,
+        initializeAdditionalComponents,
         getCurrentPage,
         setPageTitle,
         smoothScrollTo,

@@ -102,11 +102,31 @@ function loadFooter() {
  * Initialize all components
  */
 function initializeComponents() {
-    loadHeader();
-    loadFooter();
+    console.log('Initializing components...');
+    
+    try {
+        loadHeader();
+        console.log('Header loaded successfully');
+    } catch (error) {
+        console.error('Error loading header:', error);
+    }
+    
+    try {
+        loadFooter();
+        console.log('Footer loaded successfully');
+    } catch (error) {
+        console.error('Error loading footer:', error);
+    }
     
     // Set active navigation based on current page
-    setActiveNavigationForCurrentPage();
+    try {
+        setActiveNavigationForCurrentPage();
+        console.log('Navigation set successfully');
+    } catch (error) {
+        console.error('Error setting navigation:', error);
+    }
+    
+    console.log('All components initialized');
 }
 
 /**
@@ -189,9 +209,16 @@ function hideLoading(elementId) {
 }
 
 // Initialize components when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM loaded, initializing components...');
+        initializeComponents();
+    });
+} else {
+    // DOM is already loaded
+    console.log('DOM already loaded, initializing components immediately...');
     initializeComponents();
-});
+}
 
 // Export functions for use in other modules
 if (typeof module !== 'undefined' && module.exports) {
