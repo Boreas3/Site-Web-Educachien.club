@@ -1,1 +1,266 @@
- 
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS personnalisé pour la navigation -->
+    <style>
+/* Personnalisation Bootstrap pour Educachien */
+.navbar-dark.bg-dark {
+  background-color: rgb(158, 0, 1) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.navbar {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.container-fluid {
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 22px !important;
+  padding-right: 22px !important;
+}
+
+.navbar-collapse {
+  justify-content: flex-end !important;
+  margin-left: auto !important;
+  flex: 1 !important;
+}
+
+.navbar-nav {
+  margin-left: auto !important;
+}
+
+.navbar-nav:last-child {
+  margin-left: 0 !important;
+}
+
+.navbar-brand {
+  color: yellow !important;
+  font-weight: bold !important;
+}
+
+.navbar-brand:hover {
+  color: #fff !important;
+}
+
+.navbar-brand img {
+  margin-right: 10px !important;
+  height: 50px !important;
+  padding: 10px !important;
+}
+
+.nav-link {
+  color: #aaa !important;
+}
+
+.nav-link:hover {
+  color: yellow !important;
+}
+
+.nav-item.active .nav-link {
+  color: yellow !important;
+}
+
+.dropdown-menu {
+  background-color: rgb(158, 0, 1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.dropdown-item {
+  color: #aaa !important;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: yellow !important;
+}
+
+/* Styles de mise en page généraux */
+.section {
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 0 22px !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.title {
+  font-weight: bold !important;
+}
+
+/* Styles pour les onglets d'activités */
+.nav-tabs .nav-link {
+  color: #aaa !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.nav-tabs .nav-link:hover {
+  color: yellow !important;
+  border-bottom: 2px solid yellow !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: yellow !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid yellow !important;
+}
+
+.tab-content {
+  margin-top: 20px !important;
+}
+
+/* Styles pour les événements */
+.event-item {
+  margin-bottom: 10px;
+}
+
+.accordion-button {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #e7f3ff;
+  color: #0c63e4;
+}
+
+.text-red {
+  color: #dc3545;
+}
+
+.event-date-column {
+  width: 200px;
+  vertical-align: top;
+}
+
+.event-title-column {
+  vertical-align: top;
+}
+</style>
+
+    <!-- Montserrat font -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
+      rel="stylesheet"
+    />
+
+    <!-- moment.js -->
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="assets/scripts/moment-locale.js?v=1.7.1"></script>
+
+    <script src="assets/scripts/create-ics.js?v=1.7.1"></script>
+    <script src="assets/scripts/tables.js?v=1.7.1"></script>
+    <script src="assets/scripts/components.js?v=1.7.1"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Script d'activités après Bootstrap -->
+    <script src="assets/scripts/load-activites.js?v=1.7.2"></script>
+
+    <link rel="stylesheet" type="text/css" href="main.css?v=1.7.1" />
+
+    <link
+      rel="icon"
+      href="assets/images/favicon.png"
+      sizes="any"
+      type="image/png"
+    />
+
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https://educachien.club/apple-touch-icon-180x180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="https://educachien.club/apple-touch-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="https://educachien.club/apple-touch-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="167x167"
+      href="https://educachien.club/apple-touch-icon-167x167.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://qrpzga.am.files.1drv.com/y4m9IawFRWOm05DsuUzufaTW_VChC6yxUMqBoJx3OPuDW-aAPnuGB_k8bz57Xxyz5wlRB4gWLP-_6JiVJFhwcxWZRJHJdM3TkqawFbGTzvoEyF3TxJdYe9yV5xhbAaJWkxMvGgrCTptoRgg0Ztmfb-ir929bknEyycApkmmbYM5OOk0iTPgN9kuEBwpjL4i7TmRXhgvSuk3MneYtUpSwSCRfA/apple-touch-icon.png?authkey=!AMwhf3vhcUaI4xk"
+    />
+
+    <title>Educachien Engis-Fagnes - Activités</title>
+
+    <meta name="description" content="Educachien Engis-Fagnes - Les activités du club" />
+    <meta name="keywords" content="chien,chiens,éducation,positive,club,canin,canine,Engis,Fagnes,Engis-Fagnes,dressage,chiot,Educachien,éducachien,club d'éducaction canin,club canin,éducation positive,méthode naturelle,CCEF,Club canin Engis-Fagnes,Club canin Saint-Georges" />
+    <meta name="author" content="Educachien" />
+    <meta name="copyright" content="© 2023 Educachien Engis-Fagnes ASBL" />
+  </head>
+
+  <body>
+    <!-- Container pour le header -->
+    <div id="header-container"></div>
+    
+    <!-- Image de fond -->
+    <div class="landing-image">
+      <img id="landingImage" src="assets/images/background/activites.jpg"/>
+    </div>
+    <br />
+    <br />
+
+    <!-- Contenu principal -->
+    <section class="section container-fluid text-justify">
+      <article>
+        <h2 class="title text-center">Les activités du club</h2>
+        <br />
+      </article>
+      <article>
+        <div id="activites-container">
+          <!-- Les activités seront chargées dynamiquement ici -->
+        </div>
+      </article>
+    </section>
+
+    <footer>
+      <hr width="100%" />
+      <div class="text-center">
+        <small class="large-screen-only">© 2025 Educachien Engis-Fagnes ASBL. Tous droits réservés.</small>
+        <small class="small-screen-only">© 2025 Educachien Engis-Fagnes ASBL.<br/>Tous droits réservés.</small>
+      </div>
+      <!-- <div class="address text-center"><i>Educachien</i><br /><a class="phone" href="mailto:info@educachien.club">info@educachien.club</a></div> -->
+    </footer>
+
+    <script>
+      // Initialiser la page avec le système de composants
+      document.addEventListener('DOMContentLoaded', function() {
+        // Injecter seulement le header (le footer est déjà intégré)
+        componentLoader.injectHeader('nav-item-activites');
+        
+        // Les activités sont chargées automatiquement par le script load-activites.js
+      });
+    </script>
+  </body>
+</html> 
