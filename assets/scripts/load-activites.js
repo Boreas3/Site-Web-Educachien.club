@@ -1,224 +1,238 @@
 /**
- * Script pour charger les activités depuis le fichier CSV
- * Affiche les activités dans des onglets séparés (À venir / Passées)
+ * Script pour charger les activités depuis l'API PHP
+ * Remplace le contenu statique par des données dynamiques
  */
 
-// Variable globale pour stocker les activités
-let activities = [];
-
-// Fonction pour parser le CSV
-function parseCSV(csv) {
-    const lines = csv.split('\n');
-    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g, ''));
-    const result = [];
-    
-    for (let i = 1; i < lines.length; i++) {
-        if (!lines[i].trim()) continue;
-        
-        let values = [];
-        let current = '';
-        let inQuotes = false;
-        
-        for (let j = 0; j < lines[i].length; j++) {
-            const char = lines[i][j];
-            
-            if (char === '"') {
-                inQuotes = !inQuotes;
-            } else if (char === ',' && !inQuotes) {
-                values.push(current.trim());
-                current = '';
-            } else {
-                current += char;
-            }
-        }
-        values.push(current.trim());
-        
-        const obj = {};
-        headers.forEach((header, index) => {
-            obj[header.trim()] = values[index] || '';
-        });
-        result.push(obj);
+class ActivitesLoader {
+    constructor() {
+        this.apiUrl = 'api/activites.php';
+        this.container = document.getElementById('activites-container');
+        this.loadingElement = null;
+        this.errorElement = null;
     }
-    
-    return result;
-}
 
-// Fonction pour charger les activités depuis le fichier CSV
-async function loadActivities() {
-    try {
-        const response = await fetch('assets/data/activites.csv');
-        
-        if (!response.ok) {
-            throw new Error(`Erreur HTTP: ${response.status}`);
-        }
-        
-        const csvText = await response.text();
-        activities = parseCSV(csvText);
-        
-        // Convertir les activités en format compatible avec le système existant
-        activities = activities.map(activity => {
-            const date = moment(activity.date + ' ' + activity.heure_debut, 'YYYY-MM-DD HH:mm');
-            const endDate = moment(activity.date + ' ' + activity.heure_fin, 'YYYY-MM-DD HH:mm');
-            
-            return {
-                id: activity.date.replace(/-/g, '_') + '_' + activity.titre.toLowerCase().replace(/[^a-z0-9]/g, ''),
-                date: date,
-                endDate: endDate,
-                title: activity.titre,
-                description: activity.description,
-                location: activity.lieu,
-                price: activity.prix,
-                conditions: activity.modalites,
-                type: activity.type
-            };
-        });
-        
-        // Trier les activités par date (plus récentes en premier)
-        activities.sort((a, b) => b.date - a.date);
-        
-        displayActivities();
-    } catch (error) {
-        console.error('Erreur lors du chargement des activités:', error);
-        document.getElementById('activites-container').innerHTML = '<p class="text-center">Erreur lors du chargement des activités.</p>';
-    }
-}
-
-// Fonction pour afficher les activités
-function displayActivities() {
-    const container = document.getElementById('activites-container');
-    if (!container) {
-        console.error('Container activites-container non trouvé');
-        return;
-    }
-    
-    const now = moment();
-    
-    // Séparer les activités futures et passées
-    const upcomingActivities = activities.filter(activity => activity.date.isAfter(now));
-    const pastActivities = activities.filter(activity => activity.date.isBefore(now));
-    
-    // Trier les activités futures par date (plus proches en premier)
-    upcomingActivities.sort((a, b) => a.date - b.date);
-    
-    // Trier les activités passées par date (plus récentes en premier)
-    pastActivities.sort((a, b) => b.date - a.date);
-    
-    let html = `
-        <div class="row">
-            <div class="col-12">
-                <ul class="nav nav-tabs mb-3" id="activitiesTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="upcoming-tab" data-bs-toggle="tab" data-bs-target="#upcoming" type="button" role="tab" aria-controls="upcoming" aria-selected="true">
-                            À venir (${upcomingActivities.length})
-                        </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="past-tab" data-bs-toggle="tab" data-bs-target="#past" type="button" role="tab" aria-controls="past" aria-selected="false">
-                            Passées (${pastActivities.length})
-                        </button>
-                    </li>
-                </ul>
-                
-                <div class="tab-content" id="activitiesTabContent">
-                    <div class="tab-pane fade show active" id="upcoming" role="tabpanel" aria-labelledby="upcoming-tab">
-                        ${generateActivitiesHTML(upcomingActivities)}
-                    </div>
-                    <div class="tab-pane fade" id="past" role="tabpanel" aria-labelledby="past-tab">
-                        ${generateActivitiesHTML(pastActivities)}
-                    </div>
-                </div>
+    /**
+     * Affiche un message de chargement
+     */
+    showLoading() {
+        this.loadingElement = document.createElement('div');
+        this.loadingElement.className = 'text-center p-4';
+        this.loadingElement.innerHTML = `
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
             </div>
-        </div>
-    `;
-    
-    container.innerHTML = html;
-}
-
-// Fonction pour générer le HTML des activités
-function generateActivitiesHTML(activitiesList) {
-    if (activitiesList.length === 0) {
-        return '<p class="text-center mt-3">Aucune activité à afficher.</p>';
-    }
-    
-    return activitiesList.map(activity => {
-        const dateString = activity.date.format('D MMMM YYYY');
-        const dayName = activity.date.format('dddd');
-        const fromNow = activity.date.fromNow();
-        const timeString = activity.date.format('HH:mm');
-        const endTimeString = activity.endDate.format('HH:mm');
-        
-        let descriptionHTML = '';
-        if (activity.description) {
-            descriptionHTML = `<p>${activity.description}</p>`;
-        }
-        
-        let locationHTML = '';
-        if (activity.location) {
-            locationHTML = `<span><b>Où :&nbsp;</b><br class="small-screen-only">${activity.location}</span><br>`;
-        }
-        
-        let priceHTML = '';
-        if (activity.price) {
-            priceHTML = `<span><b>PAF :&nbsp;</b><br class="small-screen-only">${activity.price}</span><br>`;
-        }
-        
-        let conditionsHTML = '';
-        if (activity.conditions) {
-            conditionsHTML = `<span><b>Modalités :&nbsp;</b>${activity.conditions}</span><br>`;
-        }
-        
-        return `
-            <div class="event-item">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${activity.id}" aria-expanded="false" aria-controls="collapse_${activity.id}">
-                    <table class="text-red">
-                        <tr>
-                            <td class="event-date-column">
-                                ${dateString}<br>
-                                <small>(${dayName}, ${fromNow})</small>
-                            </td>
-                            <td class="event-title-column">
-                                ${activity.title}<br>
-                                <small>${timeString} - ${endTimeString}</small>
-                            </td>
-                        </tr>
-                    </table>
-                </button>
-                <div class="collapse" id="collapse_${activity.id}">
-                    <div class="card card-body" style="border:0">
-                        ${descriptionHTML}
-                        <span><b>Quand :&nbsp;</b><br class="small-screen-only">de ${timeString} à ${endTimeString}</span><br>
-                        ${locationHTML}
-                        ${priceHTML}
-                        ${conditionsHTML}
-                        <a href="#" class="calendar" id="calendar_link_${activity.id}" rel="noopener" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
-                                <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                            </svg> &nbsp; Ajouter à mon agenda
-                        </a>
-                        <script>
-                            createFile(
-                                "${activity.id}", 
-                                "${activity.date.format('YYYYMMDDTHHmmss')}", 
-                                "${activity.endDate.format('YYYYMMDDTHHmmss')}", 
-                                "${activity.title}", 
-                                "${activity.description}", 
-                                "${activity.location}"
-                            );
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <div style="height:8px"></div>
+            <p class="mt-2">Chargement des activités...</p>
         `;
-    }).join('');
+        this.container.appendChild(this.loadingElement);
+    }
+
+    /**
+     * Cache le message de chargement
+     */
+    hideLoading() {
+        if (this.loadingElement) {
+            this.loadingElement.remove();
+            this.loadingElement = null;
+        }
+    }
+
+    /**
+     * Affiche un message d'erreur
+     */
+    showError(message) {
+        this.errorElement = document.createElement('div');
+        this.errorElement.className = 'alert alert-danger m-3';
+        this.errorElement.innerHTML = `
+            <strong>Erreur :</strong> ${message}
+            <button type="button" class="btn btn-sm btn-outline-danger ms-2" onclick="activitesLoader.retry()">
+                Réessayer
+            </button>
+        `;
+        this.container.appendChild(this.errorElement);
+    }
+
+    /**
+     * Cache le message d'erreur
+     */
+    hideError() {
+        if (this.errorElement) {
+            this.errorElement.remove();
+            this.errorElement = null;
+        }
+    }
+
+    /**
+     * Réessaie de charger les activités
+     */
+    retry() {
+        this.hideError();
+        this.loadActivites();
+    }
+
+    /**
+     * Charge les activités depuis l'API
+     */
+    async loadActivites() {
+        try {
+            this.showLoading();
+            this.hideError();
+
+            const response = await fetch(this.apiUrl);
+            
+            if (!response.ok) {
+                throw new Error(`Erreur HTTP: ${response.status}`);
+            }
+
+            const data = await response.json();
+            
+            if (!data.success) {
+                throw new Error(data.error || 'Erreur lors du chargement des données');
+            }
+
+            this.renderActivites(data.data);
+            
+        } catch (error) {
+            console.error('Erreur lors du chargement des activités:', error);
+            this.showError('Impossible de charger les activités. Vérifiez votre connexion à la base de données.');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    /**
+     * Génère l'ID unique pour une activité
+     */
+    generateUniqueId(activite) {
+        return activite.unique_id || `event_${activite.id}`;
+    }
+
+    /**
+     * Formate le contenu HTML d'une activité
+     */
+    formatActiviteHTML(activite) {
+        const uniqueId = this.generateUniqueId(activite);
+        const collapseId = `collapse_${uniqueId}`;
+        
+        // Formatage des modalités avec des listes si nécessaire
+        let modalitesHTML = activite.modalites || '';
+        if (modalitesHTML.includes('•') || modalitesHTML.includes('-')) {
+            modalitesHTML = modalitesHTML.replace(/(?:^|\n)([•\-]\s*)/g, '<li>$1');
+            modalitesHTML = modalitesHTML.replace(/(\n|$)/g, '</li>$1');
+            modalitesHTML = `<ul>${modalitesHTML}</ul>`;
+        }
+
+        return `
+            <div id="div-event-${uniqueId}">
+                <script>
+                    var date = moment("${activite.date_debut_iso}");
+                    var fromNow = date.fromNow();
+                    var dateString = date.format("D MMMM YYYY");
+                    var dateDay = date.format("dddd");
+                </script>
+                <div class="event-item">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#${collapseId}" aria-expanded="false" aria-controls="${collapseId}">
+                        <table class="text-red">
+                            <tr>
+                                <td class="event-date-column">
+                                    <span id="${uniqueId}_date"></span><br>
+                                    <small id="${uniqueId}_delai"></small>
+                                    <script>
+                                        document.getElementById("${uniqueId}_date").innerHTML = dateString;
+                                        document.getElementById("${uniqueId}_delai").innerHTML = "(" + dateDay + ", " + fromNow + ")";
+                                    </script>
+                                </td>
+                                <td class="event-title-column">${activite.titre}</td>
+                            </tr>
+                        </table>
+                    </button>
+                    <div class="collapse" id="${collapseId}">
+                        <div class="card card-body" style="border:0">
+                            ${activite.description ? `<p>${activite.description}</p>` : ''}
+                            ${activite.lieu ? `<span><b>Où :&nbsp;</b><br class="small-screen-only">${activite.lieu}</span><br>` : ''}
+                            ${activite.paf ? `<span><b>PAF :&nbsp;</b><br class="small-screen-only">${activite.paf}</span><br>` : ''}
+                            ${activite.modalites ? `<span><b>Modalités :&nbsp;</b>${modalitesHTML}</span><br>` : ''}
+                            <a href="#" class="calendar" id="calendar_link_${uniqueId}_" rel="noopener" target="_blank">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
+                                    <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                </svg> &nbsp; Ajouter à mon agenda
+                            </a>
+                            <script>
+                                createFile(
+                                    "${uniqueId}_", 
+                                    "${activite.date_debut_iso}", 
+                                    "${activite.date_fin_iso}", 
+                                    "${activite.titre.replace(/"/g, '\\"')}", 
+                                    "${(activite.description || '').replace(/"/g, '\\"')}", 
+                                    "Rue des Alunières 18, 4480 ENGIS"
+                                );
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:8px"></div>
+            </div>
+        `;
+    }
+
+    /**
+     * Affiche les activités dans le conteneur
+     */
+    renderActivites(activites) {
+        if (!activites || activites.length === 0) {
+            this.container.innerHTML = `
+                <div class="text-center p-4">
+                    <p>Aucune activité programmée pour le moment.</p>
+                </div>
+            `;
+            return;
+        }
+
+        // Vider le conteneur
+        this.container.innerHTML = '';
+
+        // Ajouter chaque activité
+        activites.forEach(activite => {
+            const activiteHTML = this.formatActiviteHTML(activite);
+            this.container.insertAdjacentHTML('beforeend', activiteHTML);
+        });
+
+        // Appliquer les filtres et le tri après le rendu
+        this.applyFilters();
+    }
+
+    /**
+     * Applique les filtres et le tri (fonction existante)
+     */
+    applyFilters() {
+        // Cette fonction utilise le code existant de filtrage
+        if (typeof filterEvents === 'function') {
+            filterEvents();
+        }
+    }
 }
 
-// Charger les activités immédiatement ou quand le DOM est prêt
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-        loadActivities();
-    });
-} else {
-    loadActivities();
-} 
+// Initialisation du chargeur d'activités
+let activitesLoader;
+
+// Attendre que le DOM soit chargé
+document.addEventListener('DOMContentLoaded', function() {
+    // Créer le conteneur pour les activités s'il n'existe pas
+    let container = document.getElementById('activites-container');
+    if (!container) {
+        container = document.createElement('div');
+        container.id = 'activites-container';
+        
+        // Insérer le conteneur après le titre
+        const title = document.querySelector('h2.title');
+        if (title) {
+            title.parentNode.insertBefore(container, title.nextSibling);
+        }
+    }
+
+    // Initialiser le chargeur
+    activitesLoader = new ActivitesLoader();
+    
+    // Charger les activités
+    activitesLoader.loadActivites();
+}); 
