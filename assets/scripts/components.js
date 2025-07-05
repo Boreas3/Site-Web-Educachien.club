@@ -36,18 +36,18 @@ class ComponentLoader {
             <a class="nav-link" href="activites.html">Activités</a>
           </li>
           
-          <!-- Liens qui disparaissent progressivement -->
-          <li class="nav-item d-none d-xxl-block ${isActive('nav-item-documents')}" id="nav-item-documents">
+          <!-- Liens visibles en mobile et très grands écrans -->
+          <li class="nav-item d-block d-lg-none d-xxl-block ${isActive('nav-item-documents')}" id="nav-item-documents">
             <a class="nav-link" href="documents.html">Documents</a>
           </li>
-          <li class="nav-item d-none d-xxl-block ${isActive('nav-item-links')}" id="nav-item-links">
+          <li class="nav-item d-block d-lg-none d-xxl-block ${isActive('nav-item-links')}" id="nav-item-links">
             <a class="nav-link" href="links.html">Liens</a>
           </li>
-          <li class="nav-item d-none d-xxl-block ${isActive('nav-item-photos')}" id="nav-item-photos">
+          <li class="nav-item d-block d-lg-none d-xxl-block ${isActive('nav-item-photos')}" id="nav-item-photos">
             <a class="nav-link" href="photos.html">Galeries photos</a>
           </li>
 
-          <!-- Dropdown "Plus..." - apparaît quand les liens sont cachés -->
+          <!-- Dropdown "Plus..." - apparaît seulement sur écrans moyens (pas en mobile) -->
           <li class="nav-item dropdown d-none d-lg-block d-xxl-none">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Plus ...
@@ -76,7 +76,7 @@ class ComponentLoader {
           <li class="nav-item ${isActive('nav-item-contact')}" id="nav-item-contact">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
-          <li class="nav-item d-none d-xxl-block" id="nav-item-facebook">
+          <li class="nav-item d-block d-lg-none d-xxl-block" id="nav-item-facebook">
             <a class="nav-link" href="https://www.facebook.com/groups/741063934986589/" target="_blank">
               <img src="assets/images/fb_icon.png" class="fb" alt="Facebook" />
             </a>

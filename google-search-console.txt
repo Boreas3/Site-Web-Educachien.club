@@ -1,0 +1,30 @@
+INSTRUCTIONS POUR ACCÉLÉRER L'INDEXATION GOOGLE
+
+1. GOOGLE SEARCH CONSOLE
+   - Aller sur https://search.google.com/search-console
+   - Ajouter votre propriété : https://www.educachien.club
+   - Vérifier la propriété (via fichier HTML ou DNS)
+
+2. SOUMETTRE LE SITEMAP
+   - Dans Search Console > Sitemaps
+   - Ajouter : https://www.educachien.club/sitemap.xml
+   - Ajouter : https://www.educachien.club/sitemap.txt
+
+3. DEMANDER L'INDEXATION
+   - Utiliser l'outil "Demander l'indexation"
+   - Soumettre les URLs principales :
+     * https://www.educachien.club/
+     * https://www.educachien.club/club.html
+     * https://www.educachien.club/cours.html
+     * https://www.educachien.club/horaires.html
+     * https://www.educachien.club/activites.html
+
+4. SURVEILLER LES PERFORMANCES
+   - Vérifier les rapports de couverture
+   - Surveiller les erreurs d'indexation
+   - Analyser les requêtes de recherche
+
+5. OPTIMISATIONS SUPPLÉMENTAIRES
+   - Créer des backlinks depuis d'autres sites
+   - Partager sur les réseaux sociaux
+   - Mettre à jour régulièrement le contenu 

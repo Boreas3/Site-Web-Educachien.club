@@ -115,14 +115,28 @@
 }
 
 .nav-tabs .nav-link:hover {
-  color: yellow !important;
-  border-bottom: 2px solid yellow !important;
+  color: #000 !important;
+  border-bottom: 2px solid #000 !important;
 }
 
 .nav-tabs .nav-link.active {
-  color: yellow !important;
+  color: #000 !important;
   background-color: transparent !important;
-  border-bottom: 2px solid yellow !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+/* Styles pour le thème sombre */
+@media (prefers-color-scheme: dark) {
+  .nav-tabs .nav-link:hover {
+    color: #fff !important;
+    border-bottom: 2px solid #fff !important;
+  }
+
+  .nav-tabs .nav-link.active {
+    color: #fff !important;
+    background-color: transparent !important;
+    border-bottom: 2px solid #fff !important;
+  }
 }
 
 .tab-content {
@@ -155,6 +169,21 @@
 
 .event-title-column {
   vertical-align: top;
+}
+
+/* Styles pour les activités annulées */
+.cancelled-activity .accordion-button {
+  background-color: #f8f9fa;
+  opacity: 0.8;
+}
+
+.cancelled-activity .accordion-button:hover {
+  background-color: #e9ecef;
+}
+
+.cancelled-activity .badge {
+  font-size: 0.75em;
+  padding: 0.25em 0.5em;
 }
 </style>
 
@@ -189,27 +218,7 @@
 
     <link
       rel="apple-touch-icon"
-      sizes="180x180"
-      href="https://educachien.club/apple-touch-icon-180x180.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="120x120"
-      href="https://educachien.club/apple-touch-icon-120x120.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="https://educachien.club/apple-touch-icon-152x152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="167x167"
-      href="https://educachien.club/apple-touch-icon-167x167.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      href="https://qrpzga.am.files.1drv.com/y4m9IawFRWOm05DsuUzufaTW_VChC6yxUMqBoJx3OPuDW-aAPnuGB_k8bz57Xxyz5wlRB4gWLP-_6JiVJFhwcxWZRJHJdM3TkqawFbGTzvoEyF3TxJdYe9yV5xhbAaJWkxMvGgrCTptoRgg0Ztmfb-ir929bknEyycApkmmbYM5OOk0iTPgN9kuEBwpjL4i7TmRXhgvSuk3MneYtUpSwSCRfA/apple-touch-icon.png?authkey=!AMwhf3vhcUaI4xk"
+      href="assets/images/logo.png"
     />
 
     <title>Educachien Engis-Fagnes - Activités</title>
@@ -250,7 +259,7 @@
         <small class="large-screen-only">© 2025 Educachien Engis-Fagnes ASBL. Tous droits réservés.</small>
         <small class="small-screen-only">© 2025 Educachien Engis-Fagnes ASBL.<br/>Tous droits réservés.</small>
       </div>
-      <!-- <div class="address text-center"><i>Educachien</i><br /><a class="phone" href="mailto:info@educachien.club">info@educachien.club</a></div> -->
+  
     </footer>
 
     <script>

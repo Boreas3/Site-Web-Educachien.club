@@ -5,6 +5,8 @@
 
 // Variable globale pour stocker les activités
 let activities = [];
+// Variable globale pour stocker les critères d'annulation
+let cancellationRules = [];
 
 // Fonction pour parser le CSV
 function parseCSV(csv) {
@@ -43,9 +45,56 @@ function parseCSV(csv) {
     return result;
 }
 
+// Fonction pour charger les critères d'annulation depuis le fichier CSV
+async function loadCancellationRules() {
+    try {
+        const response = await fetch('assets/data/annulations.csv');
+        
+        if (!response.ok) {
+            console.warn('Fichier annulations.csv non trouvé, aucune règle d\'annulation appliquée');
+            return;
+        }
+        
+        const csvText = await response.text();
+        cancellationRules = parseCSV(csvText);
+    } catch (error) {
+        console.warn('Erreur lors du chargement des règles d\'annulation:', error);
+    }
+}
+
+// Fonction pour vérifier si une activité doit être annulée
+function checkCancellation(activity) {
+    for (const rule of cancellationRules) {
+        if (rule.critere_type === 'type' && activity.type === rule.critere_valeur) {
+            // Vérifier les conditions de date si elles sont définies
+            let shouldCancel = true;
+            
+            if (rule.date_debut && rule.date_fin) {
+                const activityDate = activity.date; // La date est déjà au format YYYY-MM-DD
+                const startDate = rule.date_debut;
+                const endDate = rule.date_fin;
+                
+                // Vérifier si l'activité est dans la période d'annulation
+                shouldCancel = activityDate >= startDate && activityDate <= endDate;
+            }
+            
+            if (shouldCancel) {
+                return {
+                    cancelled: true,
+                    message: rule.message || 'ANNULÉ'
+                };
+            }
+        }
+    }
+    return { cancelled: false };
+}
+
 // Fonction pour charger les activités depuis le fichier CSV
 async function loadActivities() {
     try {
+        // Charger d'abord les règles d'annulation
+        await loadCancellationRules();
+        
         const response = await fetch('assets/data/activites.csv');
         
         if (!response.ok) {
@@ -60,6 +109,12 @@ async function loadActivities() {
             const date = moment(activity.date + ' ' + activity.heure_debut, 'YYYY-MM-DD HH:mm');
             const endDate = moment(activity.date + ' ' + activity.heure_fin, 'YYYY-MM-DD HH:mm');
             
+            // Vérifier si l'activité doit être annulée (passer la date brute)
+            const cancellation = checkCancellation({
+                date: activity.date,
+                type: activity.type
+            });
+            
             return {
                 id: activity.date.replace(/-/g, '_') + '_' + activity.titre.toLowerCase().replace(/[^a-z0-9]/g, ''),
                 date: date,
@@ -69,7 +124,9 @@ async function loadActivities() {
                 location: activity.lieu,
                 price: activity.prix,
                 conditions: activity.modalites,
-                type: activity.type
+                type: activity.type,
+                cancelled: cancellation.cancelled,
+                cancellationMessage: cancellation.message
             };
         });
         
@@ -147,6 +204,11 @@ function generateActivitiesHTML(activitiesList) {
         const timeString = activity.date.format('HH:mm');
         const endTimeString = activity.endDate.format('HH:mm');
         
+        // Appliquer le style d'annulation si nécessaire
+        const cancelledClass = activity.cancelled ? 'cancelled-activity' : '';
+        const cancelledStyle = activity.cancelled ? 'text-decoration: line-through; opacity: 0.6;' : '';
+        const cancelledBadge = activity.cancelled ? `<span class="badge bg-danger ms-2">${activity.cancellationMessage}</span>` : '';
+        
         let descriptionHTML = '';
         if (activity.description) {
             descriptionHTML = `<p>${activity.description}</p>`;
@@ -168,7 +230,7 @@ function generateActivitiesHTML(activitiesList) {
         }
         
         return `
-            <div class="event-item">
+            <div class="event-item ${cancelledClass}">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${activity.id}" aria-expanded="false" aria-controls="collapse_${activity.id}">
                     <table class="text-red">
                         <tr>
@@ -177,7 +239,7 @@ function generateActivitiesHTML(activitiesList) {
                                 <small>(${dayName}, ${fromNow})</small>
                             </td>
                             <td class="event-title-column">
-                                ${activity.title}<br>
+                                <span style="${cancelledStyle}">${activity.title}</span>${cancelledBadge}<br>
                                 <small>${timeString} - ${endTimeString}</small>
                             </td>
                         </tr>

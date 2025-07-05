@@ -1,9 +1,31 @@
-# Tell Google not to crawl any URLs in the shopping cart or images in the icons folder,
-# because they won't be useful in Google Search results.
-User-agent: googlebot
-Disallow: /documents/
-Disallow: /photos/
-Disallow: /croquettes/
-Disallow: /assets/documents/
+# Robots.txt pour Educachien Engis-Fagnes
+# Club d'éducation canine positive - Engis, Liège, Belgique
 
+User-agent: *
+Allow: /
+
+# Empêcher l'indexation des fichiers non pertinents
+Disallow: /assets/documents/
+Disallow: /assets/scripts/
+Disallow: /components/
+Disallow: /activites/
+Disallow: /horaires/
+Disallow: /documents/
+Disallow: /croquettes/
+Disallow: /cours/
+Disallow: /contact/
+Disallow: /photos/
+
+# Autoriser l'indexation des pages principales
+Allow: /index.html
+Allow: /club.html
+Allow: /cours.html
+Allow: /horaires.html
+Allow: /activites.html
+Allow: /contact.html
+Allow: /documents.html
+Allow: /photos.html
+Allow: /links.html
+
+# Sitemap
 Sitemap: https://www.educachien.club/sitemap.txt

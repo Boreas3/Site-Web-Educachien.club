@@ -7,7 +7,7 @@
     "description": "Club d'éducation canine",
     "icons": [
       {
-        "src": "apple-touch-icon-180x180.png",
+        "src": "assets/images/logo.png",
         "sizes": "180x180",
         "type": "image/png"
       }
