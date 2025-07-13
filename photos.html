@@ -107,7 +107,77 @@
 .title {
   font-weight: bold !important;
 }
-</style>
+
+/* Styles pour les onglets d'années (comme activites.html) */
+.nav-tabs .nav-link {
+  color: #aaa !important;
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+}
+
+.nav-tabs .nav-link:hover {
+  color: #000 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+.nav-tabs .nav-link.active {
+  color: #000 !important;
+  background-color: transparent !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+/* Styles pour le thème sombre */
+@media (prefers-color-scheme: dark) {
+  .nav-tabs .nav-link:hover {
+    color: #fff !important;
+    border-bottom: 2px solid #fff !important;
+  }
+
+  .nav-tabs .nav-link.active {
+    color: #fff !important;
+    background-color: transparent !important;
+    border-bottom: 2px solid #fff !important;
+  }
+}
+
+.tab-content {
+  margin-top: 20px !important;
+}
+
+/* Styles pour les galeries */
+.gallery-item a {
+  color: rgb(158, 0, 1);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.gallery-item a:hover {
+  color: rgb(120, 0, 1);
+  text-decoration: underline !important;
+}
+
+/* Styles pour le thème sombre */
+@media (prefers-color-scheme: dark) {
+  .gallery-item a {
+    color: #fff;
+  }
+  
+  .gallery-item a:hover {
+    color: #ccc;
+  }
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .nav-tabs .nav-link {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  .gallery-item {
+    margin-bottom: 8px;
+  }
+}
 </style>
 
 <!-- Montserrat font -->
@@ -148,10 +218,6 @@
 <meta name="author" content="Educachien" />
 <meta name="copyright" content="© 2023 Educachien Engis-Fagnes ASBL" />
 
-
-  
-  
-
   </head>
 
   <body>
@@ -178,6 +244,7 @@
   </div>
 </article>
 
+<script src="assets/scripts/photos/gallery-config.js?v=1.7.1"></script>
 <script src="assets/scripts/photos/gallery.js?v=1.7.1"></script>
 <script src="assets/scripts/photos/galleries.js?v=1.7.1"></script>
 

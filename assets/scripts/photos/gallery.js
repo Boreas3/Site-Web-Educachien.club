@@ -7,8 +7,14 @@ function createGalleryLink(gallery) {
 
     let anchor = document.createElement('a'); 
     anchor.appendChild(document.createTextNode(gallery.title));
-    anchor.href = gallery.src;
-    anchor.target = "_new";
+    
+    // Gérer les galeries locales vs externes
+    if (gallery.local) {
+        anchor.href = gallery.src; // Page locale
+    } else {
+        anchor.href = gallery.src; // Lien externe
+        anchor.target = "_new";
+    }
 
     div.appendChild(anchor);
     document.getElementById("galleriesList").appendChild(div);
