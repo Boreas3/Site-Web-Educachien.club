@@ -8,6 +8,9 @@ let activities = [];
 // Variable globale pour stocker les critères d'annulation
 let cancellationRules = [];
 
+// Exposer les activités globalement pour l'accès depuis create-ics.js
+window.activities = activities;
+
 // Fonction pour parser le CSV
 function parseCSV(csv) {
     const lines = csv.split('\n');
@@ -133,6 +136,9 @@ async function loadActivities() {
         // Trier les activités par date (plus récentes en premier)
         activities.sort((a, b) => b.date - a.date);
         
+        // Mettre à jour la référence globale
+        window.activities = activities;
+        
         displayActivities();
     } catch (error) {
         console.error('Erreur lors du chargement des activités:', error);
@@ -252,22 +258,7 @@ function generateActivitiesHTML(activitiesList) {
                         ${locationHTML}
                         ${priceHTML}
                         ${conditionsHTML}
-                        <a href="#" class="calendar" id="calendar_link_${activity.id}" rel="noopener" target="_blank">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus" viewBox="0 0 16 16">
-                                <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
-                                <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
-                            </svg> &nbsp; Ajouter à mon agenda
-                        </a>
-                        <script>
-                            createFile(
-                                "${activity.id}", 
-                                "${activity.date.format('YYYYMMDDTHHmmss')}", 
-                                "${activity.endDate.format('YYYYMMDDTHHmmss')}", 
-                                "${activity.title}", 
-                                "${activity.description}", 
-                                "${activity.location}"
-                            );
-                        </script>
+
                     </div>
                 </div>
             </div>

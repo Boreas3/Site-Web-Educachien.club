@@ -1,0 +1,17 @@
+RewriteEngine On
+
+# Redirection des URLs avec .html vers les URLs propres (sans .html)
+RewriteCond %{THE_REQUEST} /([^.]+)\.html [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# Prioriser les fichiers .html sur les dossiers
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/([^/]+)/?$
+RewriteCond %{DOCUMENT_ROOT}/%1.html -f
+RewriteRule ^([^/]+)/?$ $1.html [NC,L]
+
+# Redirection des URLs sans .html vers les fichiers .html (règle générale)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^\.]+)$ $1.html [NC,L] 

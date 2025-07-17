@@ -107,73 +107,6 @@
   font-weight: bold !important;
 }
 
-/* Styles pour les horaires d'été */
-.summer-schedule {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  color: #000 !important;
-}
-
-.summer-schedule h3,
-.summer-schedule h4,
-.summer-schedule h5,
-.summer-schedule p,
-.summer-schedule b,
-.summer-schedule small {
-  color: #000 !important;
-}
-
-.summer-icon {
-  font-size: 2em;
-  color: #ff6b35;
-  margin-bottom: 10px;
-}
-
-.summer-period {
-  font-size: 0.9em;
-  color: #666;
-  font-style: italic;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.3);
-}
-
-.winter-schedule {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  color: #000 !important;
-}
-
-.winter-schedule h3,
-.winter-schedule h4,
-.winter-schedule h5,
-.winter-schedule p,
-.winter-schedule b,
-.winter-schedule small {
-  color: #000 !important;
-}
-
-.winter-icon {
-  font-size: 2em;
-  color: #1976d2;
-  margin-bottom: 10px;
-}
-
-.winter-period {
-  font-size: 0.9em;
-  color: #666;
-  font-style: italic;
-  margin-top: 15px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.3);
-}
-
 /* Styles pour les boutons de basculement */
 .btn-outline-warning.active {
   background-color: #ffc107;
@@ -197,6 +130,73 @@
   background-color: #0dcaf0;
   border-color: #0dcaf0;
   color: #000;
+}
+
+/* Styles pour les horaires - style minimal comme les autres pages */
+.schedule-section {
+  margin: 30px 0;
+}
+
+.schedule-section h3 {
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+
+.schedule-section h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.schedule-section h5 {
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #6c757d;
+}
+
+.schedule-period {
+  font-size: 0.9em;
+  color: #6c757d;
+  font-style: italic;
+  margin-top: 30px;
+  text-align: center;
+  border-top: 1px solid #dee2e6;
+  padding-top: 15px;
+}
+
+/* Styles pour le thème sombre */
+@media (prefers-color-scheme: dark) {
+  .schedule-section h5 {
+    color: #a0aec0;
+  }
+  
+  .schedule-period {
+    color: #a0aec0;
+    border-top-color: #4a5568;
+  }
+  
+  .btn-outline-warning.active {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+  }
+  
+  .btn-outline-info.active {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: #000;
+  }
+  
+  .btn-outline-warning:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+  }
+  
+  .btn-outline-info:hover {
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+    color: #000;
+  }
 }
 </style>
 
@@ -245,7 +245,7 @@
     
     <!-- Image de fond -->
     <div class="landing-image">
-      <img id="landingImage" src="assets/images/background/cours2.jpg"/>
+      <img id="landingImage" src="assets/images/background/cours5.jpg"/>
     </div>
     <br />
     <br />
@@ -261,22 +261,19 @@
             <!-- Boutons de basculement -->
             <div class="text-center mb-4">
               <button class="btn btn-outline-warning me-2" id="show-summer" onclick="showSchedule('summer')">
-                ☀️ Horaires d'été
+                Horaires d'été
               </button>
               <button class="btn btn-outline-info" id="show-winter" onclick="showSchedule('winter')">
-                ❄️ Horaires d'hiver
+                Horaires d'hiver
               </button>
             </div>
             
             <!-- Horaires d'été -->
-            <div class="summer-schedule" id="summer-schedule">
-              <div class="text-center">
-                <div class="summer-icon">☀️</div>
-                <h3>Horaires d'été</h3>
-              </div>
+            <div class="schedule-section" id="summer-schedule">
+              <h3>Horaires d'été</h3>
               <div class="team">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Education</h4>
                     <h5>Chiots 2 à 8 mois</h5>
                     <br />
@@ -285,7 +282,7 @@
                     <br />
                     <br />
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Education</h4>
                     <h5>Chiens 8 mois et +</h5>
                     <br />
@@ -297,32 +294,38 @@
                     <br />
                     <br />
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Agility</h4>
                     <h5>Chiens 12 mois et +</h5>
                     <br />
                     <b>samedi</b><br />
-                    de 10h à 12h<br />
-                    <small>⚠︎ Plus de nouvelles inscriptions pour le moment</small><br />
+                    de 9h à 11h<br />
+                    <!-- <small>⚠︎ Plus de nouvelles inscriptions pour le moment</small><br /> -->
+                    <br />
+                    <br />
+                  </div>
+                  <div class="col-md-3">
+                    <h4>Hooper</h4>
+                    <h5>Bonne connaissance des ordres de base nécessaire (positions, rappel et reste)</h5>
+                    <br />
+                    <b>samedi</b><br />
+                    de 9h à 11h<br />
                     <br />
                     <br />
                   </div>
                 </div>
               </div>
-              <div class="summer-period text-center">
+              <div class="schedule-period">
                 Horaires d'été = du 1er juillet au 1er octobre
               </div>
             </div>
             
             <!-- Horaires d'hiver -->
-            <div class="winter-schedule" id="winter-schedule">
-              <div class="text-center">
-                <div class="winter-icon">❄️</div>
-                <h3>Horaires d'hiver</h3>
-              </div>
+            <div class="schedule-section" id="winter-schedule">
+              <h3>Horaires d'hiver</h3>
               <div class="team">
                 <div class="row">
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Education</h4>
                     <h5>Chiots 2 à 8 mois</h5>
                     <br />
@@ -331,32 +334,41 @@
                     <br />
                     <br />
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Education</h4>
                     <h5>Chiens 8 mois et +</h5>
                     <br />
                     <b>mardi</b> et <b>vendredi</b><br />
-                    de 20h15 à 21h00<br />
+                    de 20h15 à 21h<br />
                     <br />
                     <b>samedi</b><br />
                     de 11h à 12h<br />
                     <br />
                     <br />
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <h4>Agility</h4>
                     <h5>Chiens 12 mois et +</h5>
                     <br />
                     <b>samedi</b><br />
-                    de 10h à 12h<br />
+                    de 9h à 11h<br />
                     de 14h à 16h<br />
-                    <small>⚠︎ Plus de nouvelles inscriptions pour le moment</small><br />
+                    <!-- <small>⚠︎ Plus de nouvelles inscriptions pour le moment</small><br /> -->
+                    <br />
+                    <br />
+                  </div>
+                  <div class="col-md-3">
+                    <h4>Hooper</h4>
+                    <h5>Bonne connaissance des ordres de base nécessaire (positions, rappel et reste)</h5>
+                    <br />
+                    <b>samedi</b><br />
+                    de 9h à 11h<br />
                     <br />
                     <br />
                   </div>
                 </div>
               </div>
-              <div class="winter-period text-center">
+              <div class="schedule-period">
                 Horaires d'hiver = du 1er octobre au 1er juillet
               </div>
             </div>
