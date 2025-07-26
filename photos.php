@@ -1,12 +1,13 @@
+<?php
+session_start();
+require_once 'includes/config.php';
+initSession();
+?>
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="manifest" href="manifest.json">
 
     <!-- Bootstrap CSS -->
@@ -19,6 +20,11 @@
   background-color: rgb(158, 0, 1) !important;
   width: 100% !important;
   max-width: 100% !important;
+  position: fixed !important;
+  top: 0 !important;
+  z-index: 1030 !important;
+  height: 80px !important;
+  min-height: 80px !important;
 }
 
 .navbar {
@@ -89,10 +95,15 @@
 }
 
 /* Styles de mise en page généraux */
+body {
+  padding-top: 80px !important;
+}
+
 .section {
   max-width: 800px !important;
   margin: 0 auto !important;
   padding: 0 22px !important;
+  padding-top: 100px !important;
 }
 
 .text-justify {
@@ -107,7 +118,7 @@
   font-weight: bold !important;
 }
 
-/* Styles pour les onglets d'activités */
+/* Styles pour les onglets d'années (comme activites.html) */
 .nav-tabs .nav-link {
   color: #aaa !important;
   border: none !important;
@@ -143,78 +154,44 @@
   margin-top: 20px !important;
 }
 
-/* Styles pour les événements */
-.event-item {
-  margin-bottom: 10px;
+/* Styles pour les galeries */
+.gallery-item a {
+  color: rgb(158, 0, 1);
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.accordion-button {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
+.gallery-item a:hover {
+  color: rgb(120, 0, 1);
+  text-decoration: underline !important;
 }
 
-.accordion-button:not(.collapsed) {
-  background-color: #e7f3ff;
-  color: #0c63e4;
-}
-
-.text-red {
-  color: #dc3545;
-}
-
-.event-date-column {
-  width: 200px;
-  vertical-align: top;
-}
-
-.event-title-column {
-  vertical-align: top;
-}
-
-/* Styles pour les activités annulées */
-.cancelled-activity .accordion-button {
-  background-color: #f8f9fa;
-  opacity: 0.8;
-}
-
-.cancelled-activity .accordion-button:hover {
-  background-color: #e9ecef;
-}
-
-.cancelled-activity .badge {
-  font-size: 0.75em;
-  padding: 0.25em 0.5em;
-}
-
-/* Styles pour les activités annulées en mode sombre */
+/* Styles pour le thème sombre */
 @media (prefers-color-scheme: dark) {
-  .cancelled-activity .accordion-button {
-    background-color: #000 !important;
-    color: #fff !important;
-    border-color: #333 !important;
+  .gallery-item a {
+    color: #fff;
   }
   
-  .cancelled-activity .accordion-button:hover {
-    background-color: #111 !important;
-    color: #fff !important;
+  .gallery-item a:hover {
+    color: #ccc;
+  }
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .nav-tabs .nav-link {
+    font-size: 14px;
+    padding: 8px 12px;
   }
   
-  .cancelled-activity .accordion-button:not(.collapsed) {
-    background-color: #000 !important;
-    color: #fff !important;
-  }
-  
-  .cancelled-activity .text-red {
-    color: #fff !important;
+  .gallery-item {
+    margin-bottom: 8px;
   }
 }
 </style>
 
     <!-- Montserrat font -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
 
     <!-- moment.js -->
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
@@ -222,78 +199,60 @@
 
     <script src="assets/scripts/create-ics.js?v=1.7.1"></script>
     <script src="assets/scripts/tables.js?v=1.7.1"></script>
-    <script src="assets/scripts/components.js?v=1.7.1"></script>
+
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Script d'activités après Bootstrap -->
-    <script src="assets/scripts/load-activites.js?v=1.7.2"></script>
 
     <link rel="stylesheet" type="text/css" href="main.css?v=1.7.1" />
 
-    <link
-      rel="icon"
-      href="assets/images/favicon.png"
-      sizes="any"
-      type="image/png"
-    />
+    <link rel="icon" href="assets/images/favicon.png" sizes="any" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/images/logo.png" />
 
-    <link
-      rel="apple-touch-icon"
-      href="assets/images/logo.png"
-    />
-
-    <title>Educachien Engis-Fagnes - Activités</title>
-
-    <meta name="description" content="Educachien Engis-Fagnes - Les activités du club" />
+    <title>Educachien Engis-Fagnes - Photos</title>
+    <meta name="description" content="Educachien Engis-Fagnes - Galeries photos" />
     <meta name="keywords" content="chien,chiens,éducation,positive,club,canin,canine,Engis,Fagnes,Engis-Fagnes,dressage,chiot,Educachien,éducachien,club d'éducaction canin,club canin,éducation positive,méthode naturelle,CCEF,Club canin Engis-Fagnes,Club canin Saint-Georges" />
     <meta name="author" content="Educachien" />
     <meta name="copyright" content="© 2023 Educachien Engis-Fagnes ASBL" />
-  </head>
+</head>
 
-  <body>
+<body>
     <!-- Container pour le header -->
-    <div id="header-container"></div>
+    <?php include 'includes/header.php'; ?>
     
     <!-- Image de fond -->
     <div class="landing-image">
-      <img id="landingImage" src="assets/images/background/activites.jpg"/>
+        <img id="landingImage" src="assets/images/background/photos.jpg"/>
     </div>
     <br />
     <br />
 
     <!-- Contenu principal -->
     <section class="section container-fluid text-justify">
-      <article>
-        <h2 class="title text-center">Les activités du club</h2>
-        <br />
-      </article>
-      <article>
-        <div id="activites-container">
-          <!-- Les activités seront chargées dynamiquement ici -->
-        </div>
-      </article>
+        <article>
+            <div>
+                <h2 class="title text-center">Galeries photos</h2>
+                <br />
+                <div
+                    id="galleriesList"
+                    style="padding-left: 22px; padding-right: 22px"
+                ></div>
+            </div>
+        </article>
+
+        <script src="assets/scripts/photos/gallery-config.js?v=1.7.3&nocache=1"></script>
+
+        <script src="assets/scripts/photos/galleries.js?v=1.7.3&nocache=1"></script>
     </section>
 
     <footer>
-      <hr width="100%" />
-      <div class="text-center">
-        <small class="large-screen-only">© 2025 Educachien Engis-Fagnes ASBL. Tous droits réservés.</small>
-        <small class="small-screen-only">© 2025 Educachien Engis-Fagnes ASBL.<br/>Tous droits réservés.</small>
-      </div>
-  
+        <hr width="100%" />
+        <div class="text-center">
+            <small class="large-screen-only">© 2025 Educachien Engis-Fagnes ASBL. Tous droits réservés.</small>
+            <small class="small-screen-only">© 2025 Educachien Engis-Fagnes ASBL.<br/>Tous droits réservés.</small>
+        </div>
     </footer>
 
-    <script>
-      // Initialiser la page avec le système de composants
-      document.addEventListener('DOMContentLoaded', function() {
-        // Injecter seulement le header (le footer est déjà intégré)
-        componentLoader.injectHeader('nav-item-activites');
-        
-        // Les activités sont chargées automatiquement par le script load-activites.js
-        // L'initialisation des liens d'agenda se fait automatiquement après le chargement
-      });
-    </script>
-  </body>
+
+</body>
 </html> 

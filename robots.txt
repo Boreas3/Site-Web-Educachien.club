@@ -7,25 +7,27 @@ Allow: /
 # Empêcher l'indexation des fichiers non pertinents
 Disallow: /assets/documents/
 Disallow: /assets/scripts/
-Disallow: /components/
+Disallow: /includes/
+Disallow: /config/
+Disallow: /scripts/
 Disallow: /gallery-template.html
 
 # Autoriser l'indexation des pages principales (URLs propres)
 Allow: /
-Allow: /club
-Allow: /cours
-Allow: /horaires
-Allow: /activites
-Allow: /contact
-Allow: /documents
-Allow: /photos
-Allow: /links
-Allow: /croquettes
+Allow: /club.php
+Allow: /cours.php
+Allow: /horaires.php
+Allow: /activites.php
+Allow: /contact.php
+Allow: /documents.php
+Allow: /photos.php
+Allow: /links.php
+Allow: /formations.php
 
 # Autoriser l'indexation des galeries photos locales
-Allow: /jeux-sans-frontieres-2023
-Allow: /grand-nettoyage-2025
-Allow: /sortie-bus-24-juin-2025
+Allow: /jeux-sans-frontieres-2023.php
+Allow: /grand-nettoyage-2025.php
+Allow: /sortie-bus-24-juin-2025.php
 
 # Sitemap
 Sitemap: https://www.educachien.club/sitemap.txt

@@ -22,7 +22,7 @@ class PhotoGalleryTemplate {
     
     // Extraire l'année de la date
     const year = date ? new Date(date).getFullYear() : null;
-    const returnUrl = year ? `photos.html#year-${year}` : 'photos.html';
+    const returnUrl = year ? `photos.php#year-${year}` : 'photos.php';
     
     let galleryHTML = `
       <div class="gallery-container">

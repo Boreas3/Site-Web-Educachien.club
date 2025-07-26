@@ -20,7 +20,7 @@ function getAllGalleriesSorted() {
       id: id,
       title: config.title,
       date: config.date,
-      src: `${id}.html`,
+      src: `${id}.php`,
       local: true
     });
   }
